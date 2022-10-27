@@ -9,22 +9,24 @@
 
 using namespace std;
 
-template<typename T>
-class priorityqueue {
+template <typename T>
+class priorityqueue
+{
 private:
-    struct NODE {
-        int priority;  // used to build BST
-        T value;  // stored data for the p-queue
-        bool dup;  // marked true when there are duplicate priorities
-        NODE* parent;  // links back to parent
-        NODE* link;  // links to linked list of NODES with duplicate priorities
-        NODE* left;  // links to left child
-        NODE* right;  // links to right child
+    struct NODE
+    {
+        int priority; // used to build BST
+        T value;      // stored data for the p-queue
+        bool dup;     // marked true when there are duplicate priorities
+        NODE *parent; // links back to parent
+        NODE *link;   // links to linked list of NODES with duplicate priorities
+        NODE *left;   // links to left child
+        NODE *right;  // links to right child
     };
-    NODE* root;  // pointer to root node of the BST
-    int size;  // # of elements in the pqueue
-    NODE* curr;  // pointer to next item in pqueue (see begin and next)
-    
+    NODE *root; // pointer to root node of the BST
+    int size;   // # of elements in the pqueue
+    NODE *curr; // pointer to next item in pqueue (see begin and next)
+
 public:
     //
     // default constructor:
@@ -32,11 +34,12 @@ public:
     // Creates an empty priority queue.
     // O(1)
     //
-    priorityqueue() {
+    priorityqueue()
+    {
 
-        root = nullptr;    
+        root = nullptr;
     }
-    
+
     //
     // operator=
     //
@@ -44,15 +47,13 @@ public:
     // Sets all member variables appropriately.
     // O(n), where n is total number of nodes in custom BST
     //
-    priorityqueue& operator=(const priorityqueue& other) {
-        
-        
+    priorityqueue &operator=(const priorityqueue &other)
+    {
+
         // TO DO: write this function.
         return *this;
-        
-        
     }
-    
+
     //
     // clear:
     //
@@ -62,7 +63,7 @@ public:
 
     void clearQ(NODE *node) // helper funtion for clear()
     {
-        if(node != nullptr)
+        if (node != nullptr)
         {
             clearQ(node->left);
             clearQ(node->right);
@@ -70,27 +71,24 @@ public:
         }
     }
 
-
-    void clear() {
-
+    void clear()
+    {
         clearQ(root);
-        
     }
-    
+
     //
     // destructor:
     //
     // Frees the memory associated with the priority queue.
     // O(n), where n is total number of nodes in custom BST
     //
-    ~priorityqueue() {
-        
-        
+    ~priorityqueue()
+    {
+
         // TO DO: write this function.
-        
-        
+        clearQ(root);
     }
-    
+
     //
     // enqueue:
     //
@@ -99,13 +97,69 @@ public:
     // O(logn + m), where n is number of unique nodes in tree and m is number of
     // duplicate priorities
     //
-    void enqueue(T value, int priority) {
-        
-        
+
+    /*void insertNew(T value, int priority)
+    {
+        NODE->value = value;
+        NODE->priority = priority;
+        NODE->left = NODE->right = nullptr;
+    }
+
+    void insert(NODE* root, T value, int priority)
+    {
+        if(root == nullptr)
+        {
+            insertNew(value, priority);
+        }
+        if(priority < root->priority)
+        {
+            root->left = insert(root->left, value, priority);
+            root->left->priority = 
+        }
+
+    }*/
+
+    void enqueue(T value, int priority)
+    {
         // TO DO: write this function.
 
+        curr = root;
+        NODE->parent = nullptr;
+
+        if(root == nullptr)
+        {
+            root = priority;
+            NODE->priority = priority;
+            NODE->value = value;
+            return;
+        }
+
+        while(curr != nullptr)
+        {
+            NODE->parent = curr;
+            //parent = curr;
+
+            if(priority < curr->priority)
+            {
+                curr = curr->left;
+            }
+            else
+            {
+                curr = curr->right;
+            }
+        }
+
+        if(priority < parent->priority)
+        {
+            parent->left = priority;
+        }
+        else
+        {
+            parent->right = priority;
+        }
+
     }
-        
+
     //
     // dequeue:
     //
@@ -114,23 +168,21 @@ public:
     // O(logn + m), where n is number of unique nodes in tree and m is number of
     // duplicate priorities
     //
-    T dequeue() {
-        
-        
+    T dequeue()
+    {
         // TO DO: write this function.
         T valueOut;
         return valueOut; // TO DO: update this return
-        
-        
     }
-    
+
     //
     // Size:
     //
     // Returns the # of elements in the priority queue, 0 if empty.
     // O(1)
     //
-    int Size() {
+    int Size()
+    {
 
         if (root == NULL)
         {
@@ -141,9 +193,8 @@ public:
             size = size(root->left) + 1 + size(root->right);
             return size;
         }
-        
     }
-    
+
     //
     // begin
     //
@@ -160,14 +211,12 @@ public:
     //      cout << priority << " value: " << value << endl;
     //    }
     //    cout << priority << " value: " << value << endl;
-    void begin() {
-        
-        
+    void begin()
+    {
+
         // TO DO: write this function.
-        
-        
     }
-    
+
     //
     // next
     //
@@ -189,15 +238,13 @@ public:
     //    }
     //    cout << priority << " value: " << value << endl;
     //
-    bool next(T& value, int &priority) {
-        
-        
+    bool next(T &value, int &priority)
+    {
+
         // TO DO: write this function.
         return true; // TO DO: update this return
-        
-        
     }
-    
+
     //
     // toString:
     //
@@ -207,16 +254,14 @@ public:
     //  2 value: Sven
     //  3 value: Gwen"
     //
-    string toString() {
-        
-        
+    string toString()
+    {
+
         // TO DO: write this function.
         string str = "";
         return str; // TO DO: update this return
-        
-        
     }
-    
+
     //
     // peek:
     //
@@ -225,16 +270,14 @@ public:
     // O(logn + m), where n is number of unique nodes in tree and m is number of
     // duplicate priorities
     //
-    T peek() {
-        
-        
+    T peek()
+    {
+
         // TO DO: write this function.
         T valueOut;
         return valueOut; // TO DO: update this return
-        
-        
     }
-    
+
     //
     // ==operator
     //
@@ -242,22 +285,21 @@ public:
     // other.  Otherwise returns false.
     // O(n), where n is total number of nodes in custom BST
     //
-    bool operator==(const priorityqueue& other) const {
-        
-        
+    bool operator==(const priorityqueue &other) const
+    {
+
         // TO DO: write this function.
         return true; // TO DO: update this return
-        
-        
     }
-    
+
     //
     // getRoot - Do not edit/change!
     //
     // Used for testing the BST.
     // return the root node for testing.
     //
-    void* getRoot() {
+    void *getRoot()
+    {
         return root;
     }
 };
