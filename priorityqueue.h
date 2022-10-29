@@ -36,8 +36,9 @@ public:
     //
     priorityqueue()
     {
-
         root = nullptr;
+        NODE->parent = nullptr;
+        size = 0;
     }
 
     //
@@ -49,7 +50,6 @@ public:
     //
     priorityqueue &operator=(const priorityqueue &other)
     {
-
         // TO DO: write this function.
         return *this;
     }
@@ -98,35 +98,20 @@ public:
     // duplicate priorities
     //
 
-    /*void insertNew(T value, int priority)
+    /*struct Node *newNode(int item)
     {
-        NODE->value = value;
-        NODE->priority = priority;
-        NODE->left = NODE->right = nullptr;
-    }
-
-    void insert(NODE* root, T value, int priority)
-    {
-        if(root == nullptr)
-        {
-            insertNew(value, priority);
-        }
-        if(priority < root->priority)
-        {
-            root->left = insert(root->left, value, priority);
-            root->left->priority = 
-        }
-
+    struct NODE *temp =  new NODE;
+    temp->value = value;
+    temp->left = temp->right = NULL;
+    temp->parent = NULL;
+    return temp;
     }*/
-
-    void enqueue(T value, int priority)
-    {
-        // TO DO: write this function.
-
-        curr = root;
+    /// enqueue code
+    /* NODE->prev = nullptr;
+        NODE->curr = root;
         NODE->parent = nullptr;
 
-        if(root == nullptr)
+        if (root == nullptr)
         {
             root = priority;
             NODE->priority = priority;
@@ -134,12 +119,12 @@ public:
             return;
         }
 
-        while(curr != nullptr)
+        while (curr != nullptr)
         {
             NODE->parent = curr;
-            //parent = curr;
+            // parent = curr;
 
-            if(priority < curr->priority)
+            if (priority < curr->priority)
             {
                 curr = curr->left;
             }
@@ -149,15 +134,39 @@ public:
             }
         }
 
-        if(priority < parent->priority)
+        if (priority < parent->priority)
         {
             parent->left = priority;
         }
         else
         {
             parent->right = priority;
+        }*/
+
+    void enqueue(T value, int priority)
+    {
+        // TO DO: write this function.
+        curr = root;
+
+        NODE *n = new NODE();
+        n->priority = priority;
+        n->left = nullptr;
+        n->right = nullptr;
+
+        if (NODE->parent == nullptr)
+        {
+            root = n;
+        }
+        else if (priority < parent->priority)
+        {
+            NODE->parent->left = n;
+        }
+        else
+        {
+            NODE->parent->right = n;
         }
 
+        size++;
     }
 
     //
@@ -183,7 +192,6 @@ public:
     //
     int Size()
     {
-
         if (root == NULL)
         {
             return 0;
