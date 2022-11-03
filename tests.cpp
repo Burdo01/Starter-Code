@@ -17,4 +17,10 @@ TEST(enqueueTest, two) {
     EXPECT_EQ(pq.Size(), 1);
 }
 
+TEST(Sizetest, three)
+{
+    priorityqueue<int> pq;
+    EXPECT_DEATH(pq.Size(), "Exited unsuccessfully");
+}
+
 // TO DO: write lots of tests here.

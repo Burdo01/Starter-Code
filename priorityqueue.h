@@ -37,7 +37,7 @@ public:
     priorityqueue()
     {
         root = nullptr;
-        NODE->parent = nullptr;
+        NODE *parent = nullptr;
         size = 0;
     }
 
@@ -98,51 +98,6 @@ public:
     // duplicate priorities
     //
 
-    /*struct Node *newNode(int item)
-    {
-    struct NODE *temp =  new NODE;
-    temp->value = value;
-    temp->left = temp->right = NULL;
-    temp->parent = NULL;
-    return temp;
-    }*/
-    /// enqueue code
-    /* NODE->prev = nullptr;
-        NODE->curr = root;
-        NODE->parent = nullptr;
-
-        if (root == nullptr)
-        {
-            root = priority;
-            NODE->priority = priority;
-            NODE->value = value;
-            return;
-        }
-
-        while (curr != nullptr)
-        {
-            NODE->parent = curr;
-            // parent = curr;
-
-            if (priority < curr->priority)
-            {
-                curr = curr->left;
-            }
-            else
-            {
-                curr = curr->right;
-            }
-        }
-
-        if (priority < parent->priority)
-        {
-            parent->left = priority;
-        }
-        else
-        {
-            parent->right = priority;
-        }*/
-
     void enqueue(T value, int priority)
     {
         // TO DO: write this function.
@@ -153,17 +108,17 @@ public:
         n->left = nullptr;
         n->right = nullptr;
 
-        if (NODE->parent == nullptr)
+        if (n->parent == nullptr)
         {
             root = n;
         }
-        else if (priority < parent->priority)
+        else if (priority < n->parent->priority)
         {
-            NODE->parent->left = n;
+            n->parent->left = n;
         }
         else
         {
-            NODE->parent->right = n;
+            n->parent->right = n;
         }
 
         size++;
